@@ -35,7 +35,7 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 def frontendDir = "$projectDir/src/main/frontend"
-
+ // test를 하기위해 아무거나 입력한 것
 sourceSets {
 	main {
 		resources { srcDirs = ["$projectDir/src/main/resources"]
