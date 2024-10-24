@@ -1,5 +1,6 @@
 package com.example.test.Controller;
 
+import com.example.test.dto.TestDto;
 import com.example.test.service.TestService;
 import com.example.test.entity.TestEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +10,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/tests")
 public class TestController {
 
-    private TestService testService;
+    private final TestService testService;
 
     @Autowired
     public TestController(TestService testService){
         this.testService = testService;
     }
 
-    @GetMapping("/tests")
-    public TestEntity createTestEntity() {
-        return testService.createTestEntityRecord();
+    // 프로젝트 정보 생성
+    @PostMapping
+    public ResponseEntity<TestEntity> createTestEntity(@RequestBody TestDto testDto) throws Exception {
+        TestEntity createdEntity = testService.createTestEntity(testDto);
+        return ResponseEntity.ok(createdEntity);
+    }
+
+    /*
+    // 프로젝트 정보 생성
+    @PostMapping
+    public ResponseEntity<TestEntity> createTestEntity(@RequestBody TestEntity testEntity) {
+        TestEntity createdEntity = testService.createTestEntity(testEntity);
+        return ResponseEntity.ok(createdEntity);
+    }
+    */
+    @GetMapping
+    public List<TestEntity> getAllTestEntities() {
+        return testService.getAllTestEntities();
     }
 }
-/*---------------------------------------------------테스트를 위한 텍스트 입력------------------------------------------------*/
